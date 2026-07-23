@@ -2,9 +2,29 @@
 
 Molenaar Companion is a responsive Progressive Web App that can be installed on laptops, phones, and tablets through the browser.
 
+## Staff sign-in
+
+The app now supports Google and Microsoft sign-in through Firebase Authentication.
+
+1. Create a Firebase project and add a Web app.
+2. Enable `Google` and `Microsoft` in `Authentication > Sign-in method`.
+3. Add your public site domain to Firebase authorized domains:
+	- `bester-io.github.io`
+	- `localhost`
+4. Copy `.env.example` to `.env.local` and fill in the Firebase values.
+5. Optionally restrict access with `VITE_ALLOWED_EMAILS` or `VITE_ALLOWED_DOMAINS`.
+
+Example:
+
+```bash
+VITE_ALLOWED_DOMAINS=yourcompany.com
+```
+
+If both allowlist variables are empty, any authenticated Google or Microsoft account allowed by Firebase can sign in.
+
 ## Run locally
 
-1. Install dependencies with `npm install`
+1. Install dependencies with `npm.cmd install`
 2. Start the dev server with `npm run dev`
 3. Open the local URL in your browser
 
