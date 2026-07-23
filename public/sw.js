@@ -1,7 +1,6 @@
-const CACHE_NAME = 'molenaar-companion-v1';
+const CACHE_NAME = 'molenaar-companion-v2';
 const basePath = self.registration.scope;
 const APP_SHELL = [
-  '',
   'manifest.webmanifest',
   'icons/icon-192.svg',
   'icons/icon-512.svg'
@@ -23,6 +22,19 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') {
+    return;
+  }
+
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match(basePath)))
+    );
     return;
   }
 

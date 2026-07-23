@@ -226,11 +226,14 @@ function registerServiceWorker() {
   }
 
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {
-      const installHint = document.querySelector('#install-hint');
-      if (installHint) {
-        installHint.textContent = 'The app runs, but offline caching could not be enabled in this browser.';
-      }
-    });
+    navigator.serviceWorker
+      .register('./sw.js')
+      .then((registration) => registration.update())
+      .catch(() => {
+        const installHint = document.querySelector('#install-hint');
+        if (installHint) {
+          installHint.textContent = 'The app runs, but offline caching could not be enabled in this browser.';
+        }
+      });
   });
 }
