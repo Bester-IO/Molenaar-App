@@ -1,14 +1,19 @@
 :root {
   color-scheme: light;
+  --primary: #141b4d;
+  --primary-strong: #0f1438;
+  --primary-rgb: 20, 27, 77;
+  --secondary: #ffdd00;
+  --secondary-rgb: 255, 221, 0;
   --bg: #f6f0e7;
   --surface: rgba(255, 252, 247, 0.82);
   --surface-strong: #fffaf2;
   --ink: #1d2724;
   --muted: #5e6a65;
   --line: rgba(20, 55, 51, 0.12);
-  --brand: #0f3d3e;
+  --brand: var(--primary);
   --brand-soft: #d8ebe4;
-  --accent: #cf5f2e;
+  --accent: var(--secondary);
   --shadow: 0 24px 80px rgba(27, 34, 30, 0.12);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -22,8 +27,8 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(207, 95, 46, 0.18), transparent 28%),
-    radial-gradient(circle at right, rgba(15, 61, 62, 0.2), transparent 24%),
+    radial-gradient(circle at top left, rgba(var(--secondary-rgb), 0.18), transparent 28%),
+    radial-gradient(circle at right, rgba(var(--primary-rgb), 0.2), transparent 24%),
     linear-gradient(160deg, #f8f5ef 0%, #efe3d0 44%, #e6ddd1 100%);
 }
 
@@ -75,7 +80,7 @@ body::before {
   right: -80px;
   top: -120px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(207, 95, 46, 0.22), rgba(15, 61, 62, 0));
+  background: linear-gradient(180deg, rgba(var(--secondary-rgb), 0.22), rgba(var(--primary-rgb), 0));
 }
 
 .eyebrow {
@@ -139,7 +144,7 @@ h2 {
 .user-chip {
   padding: 0.6rem 0.95rem;
   border-radius: 999px;
-  background: rgba(15, 61, 62, 0.08);
+  background: rgba(var(--primary-rgb), 0.08);
   color: var(--brand);
   font-size: 0.92rem;
 }
@@ -157,7 +162,7 @@ h2 {
 }
 
 .status-banner.warning {
-  background: rgba(207, 95, 46, 0.14);
+  background: rgba(var(--secondary-rgb), 0.14);
   color: #7b3b1c;
 }
 
@@ -219,7 +224,7 @@ button {
 .text-input,
 .note-input {
   width: 100%;
-  border: 1px solid rgba(15, 61, 62, 0.16);
+  border: 1px solid rgba(var(--primary-rgb), 0.16);
   border-radius: 18px;
   background: var(--surface-strong);
   color: var(--ink);
@@ -258,12 +263,12 @@ button:hover {
 
 .primary {
   color: #f9fbfa;
-  background: linear-gradient(135deg, #0f3d3e, #1d6a64);
+  background: linear-gradient(135deg, var(--primary-strong), var(--primary));
 }
 
 .ghost {
   color: var(--brand);
-  background: rgba(15, 61, 62, 0.08);
+  background: rgba(var(--primary-rgb), 0.08);
 }
 
 .task-list {
