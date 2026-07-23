@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Molenaar Companion icon</title>
+  <desc id="desc">Rounded square icon with an abstract M.</desc>
+  <rect width="512" height="512" rx="120" fill="#0f3d3e" />
+  <circle cx="392" cy="130" r="70" fill="#cf5f2e" opacity="0.95" />
+  <path d="M112 356V156h58l86 109 85-109h59v200h-58V248l-74 94h-25l-73-94v108h-58Z" fill="#f8f5ef" />
+</svg>
