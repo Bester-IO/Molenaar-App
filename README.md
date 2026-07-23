@@ -12,7 +12,11 @@ The app now supports Google and Microsoft sign-in through Firebase Authenticatio
 	- `bester-io.github.io`
 	- `localhost`
 4. Copy `.env.example` to `.env.local` and fill in the Firebase values.
-5. Optionally restrict access with `VITE_ALLOWED_EMAILS` or `VITE_ALLOWED_DOMAINS`.
+5. In GitHub, add the same values for deployment:
+	- `Settings > Secrets and variables > Actions`
+	- Add `VITE_FIREBASE_API_KEY` as a repository secret
+	- Add `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`, `VITE_ALLOWED_EMAILS`, and `VITE_ALLOWED_DOMAINS` as repository variables
+6. Optionally restrict access with `VITE_ALLOWED_EMAILS` or `VITE_ALLOWED_DOMAINS`.
 
 Example:
 

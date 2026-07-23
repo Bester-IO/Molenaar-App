@@ -38,6 +38,13 @@ jobs:
         run: npm ci
 
       - name: Build app
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+          VITE_ALLOWED_EMAILS: ${{ vars.VITE_ALLOWED_EMAILS }}
+          VITE_ALLOWED_DOMAINS: ${{ vars.VITE_ALLOWED_DOMAINS }}
         run: npm run build
         env:
           VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
