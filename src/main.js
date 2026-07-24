@@ -34,6 +34,7 @@ let members = [];
 let deferredInstallPrompt;
 let currentPage = loadInitialPage();
 let dbPromise;
+let isDrawerOpen = false;
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
@@ -66,6 +67,23 @@ async function loadDatabaseState() {
 
 function renderApp() {
   app.innerHTML = `
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="left-drawer" aria-expanded="false">...</button>
+    <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+    <aside id="left-drawer" class="left-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <p class="eyebrow">Navigation</p>
+        <button id="drawer-close" class="ghost drawer-close" type="button" aria-label="Close navigation">x</button>
+      </div>
+      <nav class="drawer-nav" aria-label="App pages">
+        <button type="button" class="drawer-link" data-page="home"><span class="nav-icon">&#8962;</span><span>Home</span></button>
+        <button type="button" class="drawer-link" data-page="tasks"><span class="nav-icon">&#10003;</span><span>Tasks</span></button>
+        <button type="button" class="drawer-link" data-page="notes"><span class="nav-icon">&#9998;</span><span>Notes</span></button>
+        <button type="button" class="drawer-link" data-page="projects"><span class="nav-icon">&#9638;</span><span>Projects</span></button>
+        <button type="button" class="drawer-link" data-page="members"><span class="nav-icon">&#9786;</span><span>Peloton Members</span></button>
+        <button type="button" class="drawer-link" data-page="settings"><span class="nav-icon">&#9881;</span><span>Settings</span></button>
+      </nav>
+    </aside>
+
     <main class="shell">
       <section class="hero card">
         <div>
@@ -78,15 +96,6 @@ function renderApp() {
           <p id="install-hint" class="hint">Open this app in Chrome, Edge, or Safari and use the install/share option to add it to your device.</p>
         </div>
       </section>
-
-      <nav class="page-nav" aria-label="App pages">
-        <button type="button" class="page-link" data-page="home">Home</button>
-        <button type="button" class="page-link" data-page="tasks">Tasks</button>
-        <button type="button" class="page-link" data-page="notes">Notes</button>
-        <button type="button" class="page-link" data-page="projects">Projects</button>
-        <button type="button" class="page-link" data-page="members">Peloton Members</button>
-        <button type="button" class="page-link" data-page="settings">Settings</button>
-      </nav>
 
       <section class="pages" data-pages>
         <section class="page" data-page-panel="home">
@@ -458,15 +467,49 @@ function renderTasks(taskList) {
 }
 
 function bindNavigation() {
-  document.querySelectorAll('.page-link').forEach((button) => {
+  const menuToggle = document.querySelector('#menu-toggle');
+  const drawerClose = document.querySelector('#drawer-close');
+  const drawerBackdrop = document.querySelector('#drawer-backdrop');
+
+  menuToggle?.addEventListener('click', () => {
+    setDrawerOpen(!isDrawerOpen);
+  });
+
+  drawerClose?.addEventListener('click', () => {
+    setDrawerOpen(false);
+  });
+
+  drawerBackdrop?.addEventListener('click', () => {
+    setDrawerOpen(false);
+  });
+
+  document.querySelectorAll('.drawer-link').forEach((button) => {
     button.addEventListener('click', () => {
       const target = button.dataset.page;
       if (!target) {
         return;
       }
       showPage(target);
+      setDrawerOpen(false);
     });
   });
+}
+
+function setDrawerOpen(nextState) {
+  const drawer = document.querySelector('#left-drawer');
+  const drawerBackdrop = document.querySelector('#drawer-backdrop');
+  const menuToggle = document.querySelector('#menu-toggle');
+
+  if (!drawer || !drawerBackdrop || !menuToggle) {
+    return;
+  }
+
+  isDrawerOpen = nextState;
+  drawer.classList.toggle('open', nextState);
+  drawerBackdrop.hidden = !nextState;
+  drawerBackdrop.classList.toggle('open', nextState);
+  drawer.setAttribute('aria-hidden', nextState ? 'false' : 'true');
+  menuToggle.setAttribute('aria-expanded', nextState ? 'true' : 'false');
 }
 
 function renderProjects(projectList, projectFeedback) {
@@ -621,10 +664,14 @@ function showPage(nextPage) {
     return;
   }
 
+  if (isDrawerOpen) {
+    setDrawerOpen(false);
+  }
+
   currentPage = nextPage;
   localStorage.setItem(storageKeys.page, nextPage);
 
-  document.querySelectorAll('.page-link').forEach((button) => {
+  document.querySelectorAll('.drawer-link').forEach((button) => {
     const active = button.dataset.page === nextPage;
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
