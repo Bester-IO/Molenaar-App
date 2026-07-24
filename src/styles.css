@@ -353,13 +353,13 @@ body::before {
 .brand-primary {
   display: flex;
   justify-content: flex-end;
-  padding: 0.62rem 1rem 0.56rem;
+  padding: clamp(0.42rem, 1.5vw, 0.62rem) clamp(0.7rem, 2.6vw, 1rem) clamp(0.38rem, 1.3vw, 0.56rem);
   background: linear-gradient(145deg, var(--primary-strong), var(--primary));
 }
 
 .brand-logo-wrap {
   position: relative;
-  width: min(380px, 100%);
+  width: clamp(180px, 42vw, 380px);
 }
 
 .brand-logo {
@@ -371,14 +371,14 @@ body::before {
 .brand-tagline {
   position: absolute;
   right: 0;
-  bottom: 0.08rem;
+  bottom: clamp(0.02rem, 0.4vw, 0.08rem);
   margin: 0;
-  padding: 0.08rem 0.22rem;
+  padding: clamp(0.04rem, 0.3vw, 0.08rem) clamp(0.12rem, 0.8vw, 0.22rem);
   color: #fff;
   text-align: right;
-  font-size: 0.74rem;
+  font-size: clamp(0.48rem, 1.45vw, 0.74rem);
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: clamp(0.02em, 0.12vw, 0.05em);
   background: rgba(var(--primary-rgb), 0.62);
   border-radius: 4px;
 }
@@ -798,6 +798,14 @@ button:hover {
   .brand-primary {
     padding-right: 0.8rem;
     padding-left: 0.8rem;
+  }
+
+  .brand-logo-wrap {
+    width: clamp(165px, 60vw, 280px);
+  }
+
+  .brand-tagline {
+    font-size: clamp(0.45rem, 2.2vw, 0.62rem);
   }
 }
 
