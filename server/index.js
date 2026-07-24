@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import express from 'express';
 import cors from 'cors';
@@ -10,7 +11,8 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const port = Number(process.env.PORT || 8787);
-const dataDir = path.resolve('server/data');
+const serverDir = path.dirname(fileURLToPath(import.meta.url));
+const dataDir = path.join(serverDir, 'data');
 const dbFile = path.join(dataDir, 'molenaar.db');
 
 fs.mkdirSync(dataDir, { recursive: true });
