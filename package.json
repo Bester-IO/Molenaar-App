@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server:install": "npm.cmd install --prefix server",
+    "server:dev": "npm.cmd --prefix server run dev",
+    "server:start": "npm.cmd --prefix server run start"
   },
   "devDependencies": {
     "vite": "^7.0.6"
